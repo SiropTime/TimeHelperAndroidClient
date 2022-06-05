@@ -23,8 +23,8 @@ import com.maltsev.stankinhack.utils.SpeechClass
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL_4)
 @Composable
-fun MainScreenPreview() {
-    MainScreen(navController = rememberNavController())
+fun ChatScreenPreview() {
+    ChatScreen(navController = rememberNavController())
 }
 
 val messageFieldText = mutableStateOf("")
@@ -36,14 +36,10 @@ val messagesList = mutableStateListOf<Message>(Message(BOT_SENDER, "Привет
 var speech: SpeechClass? = null
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun ChatScreen(navController: NavController) {
     val context = LocalContext.current
     speech = SpeechClass(context)
-    Scaffold(
-        topBar = { TopAppBar (
-            title = { Text ("Бот Борисыч", color = Color.White, textAlign = TextAlign.Center)
-            }, backgroundColor =  MaterialTheme.colors.primary) },
-        content = {
+
             Surface {
 
                 Column(
@@ -78,8 +74,6 @@ fun MainScreen(navController: NavController) {
 
                 }
             }
-        }
 
-    )
 
 }

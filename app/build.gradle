@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.maltsev.stankinhack"
+        applicationId "com.maltsev.timehelper"
         minSdk 26
         targetSdk 31
         versionCode 1

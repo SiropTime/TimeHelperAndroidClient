@@ -18,7 +18,7 @@ import kotlinx.coroutines.delay
 fun IntroScreen(navController: NavController) {
     LaunchedEffect(key1 = true) {
         delay(1000)
-        navController.navigate(route = Screen.Main.route)
+        navController.navigate(route = Screen.Chat.route)
     }
     Box(
         modifier = Modifier.fillMaxSize()
