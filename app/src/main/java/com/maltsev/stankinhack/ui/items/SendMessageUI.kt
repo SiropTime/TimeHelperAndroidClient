@@ -1,22 +1,8 @@
 package com.maltsev.stankinhack.ui.items
 
-import android.Manifest
-import android.content.Context
-import android.content.Intent
-
-import android.content.pm.PackageManager
-import android.media.AudioFormat
-import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.os.Build
-import android.speech.RecognizerIntent
-import android.speech.SpeechRecognizer
 import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -34,27 +20,20 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import com.maltsev.stankinhack.screens.canTalking
 import com.maltsev.stankinhack.screens.messageFieldText
 import com.maltsev.stankinhack.screens.messagesList
-import com.maltsev.stankinhack.screens.speech
-import com.maltsev.stankinhack.utils.Message
+import com.maltsev.stankinhack.utils.model.Message
 import com.maltsev.stankinhack.utils.makeSendingAudio
 import com.maltsev.stankinhack.utils.makeSendingMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 
 var audioRecorder: MediaRecorder? = null
 val isListening = mutableStateOf(false)
@@ -174,14 +153,19 @@ fun SendMessageUI() {
 @Suppress("DEPRECATION")
 fun startRecording(file: File) {
     Log.d("AUDIO", "Starting recording")
-    audioRecorder = MediaRecorder().apply {
-        setAudioSource(MediaRecorder.AudioSource.MIC)
-        setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
-        setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        setOutputFile(file)
-        prepare()
-        start()
+    try {
+        audioRecorder = MediaRecorder().apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            setOutputFile(file)
+            prepare()
+            start()
+        }
+    } catch (e: Exception) {
+
     }
+
 }
 
 fun stopRecording() {

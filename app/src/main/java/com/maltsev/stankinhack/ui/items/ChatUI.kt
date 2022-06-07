@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
@@ -18,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maltsev.stankinhack.BOT_SENDER
 import com.maltsev.stankinhack.screens.messagesList
-import com.maltsev.stankinhack.utils.Message
+import com.maltsev.stankinhack.utils.model.Message
 
 @Composable
 fun ChatUI() {

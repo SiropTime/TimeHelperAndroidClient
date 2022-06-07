@@ -18,8 +18,7 @@ import com.google.gson.GsonBuilder
 import com.maltsev.stankinhack.ui.items.BottomBar
 import com.maltsev.stankinhack.ui.items.BottomTabs
 import com.maltsev.stankinhack.ui.theme.StankinHackTheme
-import com.maltsev.stankinhack.utils.SetupNavGraph
-import com.maltsev.stankinhack.utils.SpeechService
+import com.maltsev.stankinhack.utils.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -30,12 +29,19 @@ val gson = builder.setLenient().create()
 //var recorder: MediaRecorder? = null
 
 
-val retrofit : Retrofit = Retrofit.Builder()
-    .baseUrl("http://192.168.8.133:8081")
+val retrofitSpeech : Retrofit = Retrofit.Builder()
+    .baseUrl(SPEECH_URL)
     .addConverterFactory(GsonConverterFactory.create(gson))
     .build()
 
- val speechService: SpeechService = retrofit.create(SpeechService::class.java)
+val retrofitPosts : Retrofit = Retrofit.Builder()
+    .baseUrl(POSTS_URL)
+    .addConverterFactory(GsonConverterFactory.create(gson))
+    .build()
+
+val speechService: SpeechService = retrofitSpeech.create(SpeechService::class.java)
+val postsService: PostsService = retrofitPosts.create(PostsService::class.java)
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +52,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             val tabs = remember { BottomTabs.values() }
             val nav = rememberNavController()
+            makeGetPostAll(context)
             StankinHackTheme {
                 Scaffold(
                     topBar = { TopAppBar (

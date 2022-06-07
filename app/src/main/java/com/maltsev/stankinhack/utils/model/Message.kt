@@ -1,4 +1,4 @@
-package com.maltsev.stankinhack.utils
+package com.maltsev.stankinhack.utils.model
 
 import com.google.gson.annotations.SerializedName
 
